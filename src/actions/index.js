@@ -6,3 +6,4 @@ export {
   getUsers,
   setIsUsersLoading,
 } from "./users";
+export { SET_ERROR, setError } from "./error";

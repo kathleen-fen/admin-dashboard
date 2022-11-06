@@ -1,6 +1,6 @@
 import { takeEvery, put, call } from "redux-saga/effects";
 
-import { GET_USERS, setUsers, setIsUsersLoading } from "../actions";
+import { GET_USERS, setUsers, setIsUsersLoading, setError } from "../actions";
 import { getUserList } from "../api/users";
 
 function* getUsersWorker() {
@@ -10,7 +10,7 @@ function* getUsersWorker() {
     yield put(setUsers(userList));
     yield put(setIsUsersLoading(false));
   } catch (err) {
-    console.log("err: ", err);
+    yield put(setError(err));
   }
 }
 
