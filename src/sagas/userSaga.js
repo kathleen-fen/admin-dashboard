@@ -32,7 +32,6 @@ function* addUserWorker(payload) {
     const userList = yield select(userListSelector);
     yield put(setUsers([...userList, { id, ...user }]));
   } catch (err) {
-    console.log(err);
     yield put(setError(err));
   } finally {
     yield put(setIsUsersLoading(false));

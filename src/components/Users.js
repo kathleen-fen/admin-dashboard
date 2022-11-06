@@ -51,7 +51,7 @@ const Users = () => {
           <TableBody>
             {isUsersLoading ? (
               <UserListSkeleton />
-            ) : (
+            ) : userList.length ? (
               userList.map((user) => (
                 <TableRow
                   key={user.id}
@@ -86,6 +86,12 @@ const Users = () => {
                   </TableCell>
                 </TableRow>
               ))
+            ) : (
+              <TableRow>
+                <TableCell>
+                  <Typography variant="h6"> Empty List</Typography>
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>
