@@ -7,12 +7,7 @@ function* getUsersWorker() {
   try {
     const userList = (yield getUserList()).data;
     console.log("userList: ", userList);
-    yield put(
-      setUsers({
-        userList: [...userList],
-        isLoading: false,
-      })
-    );
+    yield put(setUsers(userList));
   } catch (err) {
     console.log("err: ", err);
   }
