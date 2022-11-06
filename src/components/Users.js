@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -16,6 +17,7 @@ import { userListSelector, isUsersLoadingSelector } from "../selectors";
 import UserListSkeleton from "./UserListSkeleton";
 
 const Users = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const userList = useSelector(userListSelector);
   const isUsersLoading = useSelector(isUsersLoadingSelector);
@@ -37,7 +39,9 @@ const Users = () => {
         <Typography variant="h5" sx={{ my: 2 }}>
           User List
         </Typography>
-        <Button variant="contained">Add User</Button>
+        <Button variant="contained" onClick={() => navigate("/addUser")}>
+          Add User
+        </Button>
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -75,7 +79,12 @@ const Users = () => {
                       : null}
                   </TableCell>
                   <TableCell align="center">
-                    <Button variant="contained">Edit</Button>
+                    <Button
+                      variant="contained"
+                      onClick={() => navigate(`/user/${user.id}`)}
+                    >
+                      Edit
+                    </Button>
                   </TableCell>
                   <TableCell align="center">
                     <Button variant="contained">Delete</Button>
