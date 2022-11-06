@@ -22,6 +22,11 @@ const UserForm = () => {
       const newFormControls = { ...formControls };
       Object.keys(newFormControls).forEach((el) => {
         newFormControls[el].value = user[el];
+        newFormControls[el].touched = true;
+        newFormControls[el].valid = validate(
+          user[el],
+          newFormControls[el].validation
+        );
       });
       setFormControls(newFormControls);
     }
