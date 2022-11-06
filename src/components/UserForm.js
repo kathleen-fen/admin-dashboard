@@ -1,15 +1,31 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { TextField, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { FormControl, Button } from "@mui/material";
-import { InputLabel } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { createControl, validate, validateForm } from "../formFramework";
 import Input from "./UI/Input";
+import { userSelector } from "../selectors";
 
 const UserForm = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const user = useSelector(userSelector(+id));
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      const newFormControls = { ...formControls };
+      Object.keys(newFormControls).forEach((el) => {
+        newFormControls[el].value = user[el];
+      });
+      setFormControls(newFormControls);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
   const createFormControls = () => {
     return {
       name: createControl(

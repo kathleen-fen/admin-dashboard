@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,21 +11,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-import { getUsers } from "../actions";
+//import { getUsers } from "../actions";
 import { userListSelector, isUsersLoadingSelector } from "../selectors";
 import UserListSkeleton from "./UserListSkeleton";
 
 const Users = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const userList = useSelector(userListSelector);
   const isUsersLoading = useSelector(isUsersLoadingSelector);
-  useEffect(() => {
-    dispatch(getUsers());
-  }, []);
-  useEffect(() => {
-    console.log("selector: ", userList);
-  }, [userList]);
   return (
     <>
       <Box
@@ -81,13 +73,16 @@ const Users = () => {
                   <TableCell align="center">
                     <Button
                       variant="contained"
+                      color="success"
                       onClick={() => navigate(`/user/${user.id}`)}
                     >
                       Edit
                     </Button>
                   </TableCell>
                   <TableCell align="center">
-                    <Button variant="contained">Delete</Button>
+                    <Button variant="contained" color="error">
+                      Delete
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))

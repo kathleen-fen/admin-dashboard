@@ -10,6 +10,10 @@ import { getUsers } from "./actions";
 import { routes } from "./routs";
 
 function App() {
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+  const dispatch = useDispatch();
   return (
     <Box sx={{ p: 8 }}>
       <Typography variant="h3" sx={{ pb: 8 }} color="primary">
