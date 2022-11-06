@@ -1,7 +1,7 @@
 import { fromJS } from "immutable";
 const defaultUserState = {
   userList: [],
-  isLoading: false,
+  isUsersLoading: false,
 };
 
 export const defaultState = fromJS({

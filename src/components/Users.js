@@ -12,12 +12,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 import { getUsers } from "../actions";
-import { userListSelector } from "../selectors";
+import { userListSelector, isUsersLoadingSelector } from "../selectors";
+import UserListSkeleton from "./UserListSkeleton";
 
 const Users = () => {
   const dispatch = useDispatch();
   const userList = useSelector(userListSelector);
-  const rows = [];
+  const isUsersLoading = useSelector(isUsersLoadingSelector);
   useEffect(() => {
     dispatch(getUsers());
   }, []);
@@ -52,32 +53,36 @@ const Users = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {userList.map((user) => (
-              <TableRow
-                key={user.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {user.id}
-                </TableCell>
-                <TableCell align="right">{user.name}</TableCell>
-                <TableCell align="right">{user.username}</TableCell>
-                <TableCell align="right">{user.email}</TableCell>
-                <TableCell align="right">
-                  {user.address
-                    ? user.address.city
+            {isUsersLoading ? (
+              <UserListSkeleton />
+            ) : (
+              userList.map((user) => (
+                <TableRow
+                  key={user.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {user.id}
+                  </TableCell>
+                  <TableCell align="right">{user.name}</TableCell>
+                  <TableCell align="right">{user.username}</TableCell>
+                  <TableCell align="right">{user.email}</TableCell>
+                  <TableCell align="right">
+                    {user.address
                       ? user.address.city
-                      : null
-                    : null}
-                </TableCell>
-                <TableCell align="center">
-                  <Button variant="contained">Edit</Button>
-                </TableCell>
-                <TableCell align="center">
-                  <Button variant="contained">Delete</Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                        ? user.address.city
+                        : null
+                      : null}
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button variant="contained">Edit</Button>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button variant="contained">Delete</Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

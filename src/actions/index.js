@@ -1,1 +1,8 @@
-export { GET_USERS, SET_USERS, setUsers, getUsers } from "./users";
+export {
+  GET_USERS,
+  SET_USERS,
+  SET_ISUSERSLOADING,
+  setUsers,
+  getUsers,
+  setIsUsersLoading,
+} from "./users";
