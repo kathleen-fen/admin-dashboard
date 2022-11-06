@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import { createControl, validate, validateForm } from "../formFramework";
 import Input from "./UI/Input";
 import { userSelector } from "../selectors";
-import { addUser } from "../actions";
+import { addUser, updateUser } from "../actions";
 
 const UserForm = () => {
   const dispatch = useDispatch();
@@ -57,10 +57,18 @@ const UserForm = () => {
   const [formControls, setFormControls] = useState(createFormControls());
   const [isFormValid, setIsFormValid] = useState(false);
   const saveChanges = () => {
-    if (!user) {
+    if (user) {
+      dispatch(
+        updateUser({
+          ...user,
+          name: formControls.name.value,
+          email: formControls.email.value,
+        })
+      );
+      navigate("/");
+    } else {
       dispatch(
         addUser({
-          ...user,
           name: formControls.name.value,
           email: formControls.email.value,
         })
