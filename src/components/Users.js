@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,12 +11,17 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-//import { getUsers } from "../actions";
 import { userListSelector, isUsersLoadingSelector } from "../selectors";
+import {
+  setConfirmDialogSettings,
+  setOpenConfirmDialog,
+  deleteUser,
+} from "../actions";
 import UserListSkeleton from "./UserListSkeleton";
 
 const Users = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userList = useSelector(userListSelector);
   const isUsersLoading = useSelector(isUsersLoadingSelector);
   return (
@@ -80,7 +85,26 @@ const Users = () => {
                     </Button>
                   </TableCell>
                   <TableCell align="center">
-                    <Button variant="contained" color="error">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => {
+                        dispatch(
+                          setConfirmDialogSettings({
+                            handleClose: () => {
+                              dispatch(setOpenConfirmDialog(false));
+                            },
+                            handleConfirm: () => {
+                              dispatch(deleteUser(user));
+                              dispatch(setOpenConfirmDialog(false));
+                            },
+                            text: `You are about to delete user ${user.username}!`,
+                            title: "Delete User",
+                          })
+                        );
+                        dispatch(setOpenConfirmDialog(true));
+                      }}
+                    >
                       Delete
                     </Button>
                   </TableCell>

@@ -10,6 +10,7 @@ import { getUsers } from "./actions";
 import { userListSelector } from "./selectors";
 import { routes } from "./routs";
 import Error from "./components/UI/Error";
+import ConfirmDialog from "./components/UI/confirmDialog";
 
 function App() {
   const userList = useSelector(userListSelector);
@@ -31,6 +32,7 @@ function App() {
         }}
       >
         <Error />
+        <ConfirmDialog />
         <Router>
           <Routes>
             {routes.map((el, index) => (

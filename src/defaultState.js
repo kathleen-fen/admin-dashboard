@@ -9,9 +9,15 @@ const defaultErrorState = {
 };
 
 const defaultConfirmState = {
-  confirmIsOpen: false,
-  confirmMessage: "",
-  confirmFunction: null,
+  openConfirmDialog: false,
+  confirmDialogSettings: {
+    /*eslint no-empty-function: ["error", { "allow": ["arrowFunctions"] }]*/
+    handleClose: () => {},
+    /*eslint no-empty-function: ["error", { "allow": ["arrowFunctions"] }]*/
+    handleConfirm: () => {},
+    text: "",
+    title: "",
+  },
 };
 
 export const defaultState = fromJS({
