@@ -8,6 +8,7 @@ import { Button } from "@mui/material";
 import { createControl, validate, validateForm } from "../formFramework";
 import Input from "./UI/Input";
 import { userSelector } from "../selectors";
+import { addUser } from "../actions";
 
 const UserForm = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,18 @@ const UserForm = () => {
   };
   const [formControls, setFormControls] = useState(createFormControls());
   const [isFormValid, setIsFormValid] = useState(false);
+  const saveChanges = () => {
+    if (!user) {
+      dispatch(
+        addUser({
+          ...user,
+          name: formControls.name.value,
+          email: formControls.email.value,
+        })
+      );
+      navigate("/");
+    }
+  };
   const controlChangeHandler = (value, controlName) => {
     const newControl = {
       ...formControls[controlName],
@@ -107,7 +120,12 @@ const UserForm = () => {
           </Box>
           {renderControls()}
           <Box sx={{ display: "flex", justifyContent: "right", mt: 2 }}>
-            <Button sx={{ mr: 2 }} variant="contained" disabled={!isFormValid}>
+            <Button
+              sx={{ mr: 2 }}
+              variant="contained"
+              disabled={!isFormValid}
+              onClick={saveChanges}
+            >
               Save
             </Button>
             <Button onClick={() => navigate("/")}>Cancel</Button>

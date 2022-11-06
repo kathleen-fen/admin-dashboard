@@ -7,11 +7,15 @@ import Box from "@mui/material/Box";
 
 import "./App.css";
 import { getUsers } from "./actions";
+import { userListSelector } from "./selectors";
 import { routes } from "./routs";
 
 function App() {
+  const userList = useSelector(userListSelector);
   useEffect(() => {
-    dispatch(getUsers());
+    if (!userList.length) {
+      dispatch(getUsers());
+    }
   }, []);
   const dispatch = useDispatch();
   return (
