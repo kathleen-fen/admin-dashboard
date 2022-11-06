@@ -9,6 +9,7 @@ import "./App.css";
 import { getUsers } from "./actions";
 import { userListSelector } from "./selectors";
 import { routes } from "./routs";
+import Error from "./components/UI/Error";
 
 function App() {
   const userList = useSelector(userListSelector);
@@ -29,6 +30,7 @@ function App() {
           p: 4,
         }}
       >
+        <Error />
         <Router>
           <Routes>
             {routes.map((el, index) => (
