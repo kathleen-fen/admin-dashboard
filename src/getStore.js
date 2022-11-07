@@ -13,7 +13,6 @@ export const getStore = () => {
     devTools: process.env.NODE_ENV !== "production",
     preloadedState: defaultState,
   });
-  console.log("Saga middleware implemented!");
   initSagas(sagaMiddleware);
   return store;
 };

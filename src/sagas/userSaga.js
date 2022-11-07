@@ -52,7 +52,6 @@ function* updateUserWorker(payload) {
 
     yield put(setUsers([...userList]));
   } catch (err) {
-    console.log(err);
     yield put(setError(err));
   } finally {
     yield put(setIsUsersLoading(false));
@@ -61,16 +60,11 @@ function* updateUserWorker(payload) {
 
 function* deleteUserWorker(payload) {
   const { user } = payload;
-  console.log("payload: ", payload);
   try {
     yield put(setIsUsersLoading(true));
     yield call(deleteUser, user.id);
     const userList = yield select(userListSelector);
-    console.log("id:", user.id);
-    console.log(
-      "filter: ",
-      userList.filter((el) => el.id !== user.id)
-    );
+
     yield put(setUsers(userList.filter((el) => el.id !== user.id)));
   } catch (err) {
     yield put(setError(err));

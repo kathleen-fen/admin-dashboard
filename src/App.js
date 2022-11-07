@@ -18,6 +18,7 @@ function App() {
     if (!userList.length) {
       dispatch(getUsers());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const dispatch = useDispatch();
   return (

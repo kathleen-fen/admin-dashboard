@@ -43,10 +43,19 @@ const ConfirmDialog = () => {
         <DialogContentText>{confirmDialogSettings.text}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={confirmDialogSettings.handleClose}>
+        <Button
+          variant="outlined"
+          autoFocus
+          onClick={confirmDialogSettings.handleClose}
+        >
           Cancel
         </Button>
-        <Button onClick={confirmDialogSettings.handleConfirm}>Submit</Button>
+        <Button
+          variant="contained"
+          onClick={confirmDialogSettings.handleConfirm}
+        >
+          Submit
+        </Button>
       </DialogActions>
     </Dialog>
   );
